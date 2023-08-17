@@ -2,27 +2,27 @@
 
 boot linux with huge pages "default_hugepagesz=1G hugepagesz=1G hugepages=1"
 
-root@bapvecise025:~#
+root@root:~#
 
-root@bapvecise025:~# cat /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
+root@root:~# cat /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
 
 N
 
-root@bapvecise025:~# echo 1 > /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
+root@root:~# echo 1 > /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
 
-root@bapvecise025:~# cat /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
+root@root:~# cat /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
 
 Y
 
-root@bapvecise025:~# rmmod nvme
+root@root:~# rmmod nvme
 
-root@bapvecise025:~# echo 0000:03:00.0 > /sys/bus/pci/devices/0000:03:00.0/driver/unbind
+root@root:~# echo 0000:03:00.0 > /sys/bus/pci/devices/0000:03:00.0/driver/unbind
 
 -bash: /sys/bus/pci/devices/0000:03:00.0/driver/unbind: No such file or directory
 
-root@bapvecise025:~# echo 144d a808 > /sys/bus/pci/drivers/vfio-pci/new_id
+root@root:~# echo 144d a808 > /sys/bus/pci/drivers/vfio-pci/new_id
 
-root@bapvecise025:~# lspci -vv -s 03:00.0
+root@root:~# lspci -vv -s 03:00.0
 
 03:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller SM981/PM981/PM983 (prog-if 02 [NVM Express])
 
@@ -162,17 +162,17 @@ root@bapvecise025:~# lspci -vv -s 03:00.0
 
  
 
-root@bapvecise025:~# ls /dev/vfio/
+root@root:~# ls /dev/vfio/
 
 noiommu-0  vfio
 
-root@bapvecise025:~# ls /dev/vfio/
+root@root:~# ls /dev/vfio/
 
 noiommu-0  vfio
 
-root@bapvecise025:~#
+root@root:~#
 
-root@bapvecise025:/home/bapvecise025/SK# ./a.out
+root@root:~# ./a.out
 
 Group fd = 4
 
