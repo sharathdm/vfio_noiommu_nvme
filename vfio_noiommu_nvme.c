@@ -1,4 +1,4 @@
-/* reference from https://github.com/mmisono/vfio-e1000/blob/master/e1000.c */
+/* reference from https://github.com/awilliam/tests/blob/master/vfio-noiommu-pci-device-open.c */
 #define _LARGEFILE64_SOURCE 
 #include <errno.h>
 #include <stdio.h>
@@ -290,17 +290,19 @@ int main(){
     if(ioctl(container,VFIO_GET_API_VERSION)!=VFIO_API_VERSION){
         printf("Unknown api version: %m\n");    
     }   
-    group_fd = open("/dev/vfio/noiommu-0",O_RDWR);     printf("Group fd = %d\n", group_fd);
+    group_fd = open("/dev/vfio/noiommu-0",O_RDWR);
+    printf("Group fd = %d\n", group_fd);
     ioctl(group_fd, VFIO_GROUP_GET_STATUS, &group_status);
     if (!(group_status.flags & VFIO_GROUP_FLAGS_VIABLE)){
         printf("Group not viable\n");
-        return 1;
+        return -1;
     }   
     ret = ioctl(group_fd, VFIO_GROUP_SET_CONTAINER,&container);     
 
     ret = ioctl(container, VFIO_SET_IOMMU, VFIO_TYPE1_IOMMU);
-	if (!ret) {
-		printf("ERROR, was able to use type1 IOMMU with no-iommu\n");
+    if (!ret) {
+        printf("ERROR, was able to use type1 IOMMU with no-iommu\n");
+	        close(group_fd);
 		close(container);
 		return -1;
 	}
