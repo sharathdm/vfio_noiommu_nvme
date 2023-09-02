@@ -374,10 +374,10 @@ printf("%d %x %d %d %x\n",device_info.argsz, device_info.flags, device_info.num_
 	buffer[0x4000] = 0xEE;
 	printf("buffer addr %lx\n", buffer);
 	sub_v = buffer;
-	comp_v = sub_v+BUF_SIZE;
-	prp1_v = comp_v+BUF_SIZE;
+	comp_v = (char *)sub_v+BUF_SIZE;
+	prp1_v = (char *)comp_v+BUF_SIZE;
 	sub_v_q1 = prp1_v+BUF_SIZE;
-	comp_v_q1 = sub_v_q1+BUF_SIZE;
+	comp_v_q1 = (char *)sub_v_q1+BUF_SIZE;
 	printf("VIRT %lx %lx %lx %lx %lx\n",sub_v,comp_v,prp1_v,sub_v_q1,comp_v_q1);
 	sub_p = virtual_to_physical(sub_v);
 	comp_p = virtual_to_physical(comp_v);
